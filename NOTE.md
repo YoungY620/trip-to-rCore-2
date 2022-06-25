@@ -137,3 +137,5 @@
 ### 实验题1: 实现调用栈展开内核程序
 
 - `asm!`: [文档](https://doc.rust-lang.org/core/arch/macro.asm.html), [rust by example](https://doc.rust-lang.org/nightly/rust-by-example/unsafe/asm.html#inputs-and-outputs)
+- 中断/异常委托机制
+
