@@ -6,3 +6,7 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+riscv = { git = "https://gitee.com/rcore-os/riscv", features = ["inline-asm"], rev = "b6c469f0aabb5982b194a3ac3be0ea45329476ab"} 
+
+[profile.release]
+debug = true

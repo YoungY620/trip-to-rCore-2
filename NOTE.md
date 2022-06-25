@@ -6,12 +6,15 @@
   - [如何实现用户进程](#如何实现用户进程)
   - [特权级转换](#特权级转换)
 - [实现细节](#实现细节)
+  - [实现用户程序](#实现用户程序)
+  - [内核装入用户程序](#内核装入用户程序)
+  - [实验题1: 实现调用栈展开内核程序](#实验题1-实现调用栈展开内核程序)
 
 ## 内容简述与补充
 
 ### 特权机制
 
-- risc-v 五级特权：U/S/H/M，H 标准仍在制定
+- risc-v 五级特权：U/S/H/M，H 标准仍在制定 此处不涉及
 - 特权是 **针对指令** 的：某些 （汇编）指令 是仅在某种特权级下才允许执行
 - 特权级之间的切换接口：XBI（ABI、SBI）、API
   - 用来跳转的 **机器指令** : `ecal` `eret`
@@ -109,4 +112,28 @@
 
 ## 实现细节
 
-- Rust 构建脚本 `build.rs`
+### 实现用户程序
+
+- Makefile 函数
+  - `$(wildcard PATTERN...)` 匹配此模式的所有文件列表, 空格隔开
+  - `$(patsubst <pattern>,<replacement>,<text>)` 在 `<text>` 中 匹配(查找) `<pattern>`, 匹配成功使用 `<replacement>` 替换
+  - `$(foreach var,list,text)`: 循环. `list` 以空格隔开的列表, `list` 中的 `var` 再使用 `text` 计算得出结果. 例如:
+
+    ```makefile
+    files := aa bb cc
+    outs := $(foreach f, $(files), $(f).o)
+    ```
+
+    则 `outs` 最终值为 `aa.o bb.o cc.o`
+- 编译 [Package Layout](https://doc.rust-lang.org/cargo/guide/project-layout.html)
+  - `main.rs` 是可执行入口, 对应的编译后将生成一个可执行文件
+    - 若想要生成其他的可执行文件, 将带有 `main` 函数的 `*.rs` 放到 `bin`中
+  - 用 `cargo build` 将 `bin/*rs` 生成为多个用户程序可执行文件
+
+### 内核装入用户程序
+
+- `build.rs`: 构建脚本([参考](https://rustwiki.org/en/rust-by-example/cargo/build_scripts.html)). 在 `cargo build` 时 自动 运行.
+
+### 实验题1: 实现调用栈展开内核程序
+
+- `asm!`: [文档](https://doc.rust-lang.org/core/arch/macro.asm.html), [rust by example](https://doc.rust-lang.org/nightly/rust-by-example/unsafe/asm.html#inputs-and-outputs)

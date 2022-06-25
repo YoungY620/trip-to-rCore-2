@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:18.04
 LABEL maintainer="youngyee620" \
       version="1.1" \
       description="ubuntu 18.04 with tools for tsinghua's rCore-Tutorial-V3"
