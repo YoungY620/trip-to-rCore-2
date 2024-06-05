@@ -2,6 +2,8 @@
 
 **:warning: This branch (`master`) is empty. Every chapter's implementation are in corresponding branches like `ch1`, `ch2`, etc.**
 
+第一次尝试代码：<https://github.com/YoungY620/trip-to-rCore>
+
 ## Inspiration & Reference
 
 - [rCore Documentation in Chinese](https://rcore-os.github.io/rCore-Tutorial-Book-v3/).
